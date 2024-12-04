@@ -1,15 +1,15 @@
 version: 0.2
+
 phases:
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com
+      - echo "Logging in to Amazon ECR..."
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 182399712653.dkr.ecr.us-east-1.amazonaws.com
   build:
     commands:
-      - echo Building the Docker image...
-      - docker build -t $ImageName -f ./Dockerfile .
-  post_build:
-    commands:
-      - echo Pushing the Docker image...
-      - docker tag $ImageName:latest $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ImageName:latest
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$ImageName:latest
+      - echo "Loading Docker image from file..."
+      - docker load < aar_logo_final.png
+      - echo "Tagging Docker image..."
+      - docker tag your-image-name:latest 182399712653.dkr.ecr.us-east-1.amazonaws.com/your-image-name:latest
+      - echo "Pushing Docker image to ECR..."
+      - docker push 182399712653.dkr.ecr.us-east-1.amazonaws.com/your-image-name:latest
